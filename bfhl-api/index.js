@@ -8,7 +8,7 @@ app.use(express.json());
 const isValid = (s) => {
     if (!s) return false;
     s = s.trim();
-    if (!/^[A-Z]->[A-Z]$/.test(s)) return false;
+    if (!/^[A-Z]->[A-Z]$/.test(s)) {return false;}
     const [a, b] = s.split("->");
     if (a === b) return false;
     return true;
@@ -23,6 +23,7 @@ app.post("/bfhl", (req, res) => {
     let duplicate_edges = [];
 
     let seen = new Set();
+
     let edges = [];
 
     for (let e of input) {
@@ -40,6 +41,7 @@ app.post("/bfhl", (req, res) => {
         }
 
         seen.add(e);
+
         edges.push(e);
     }
 
@@ -54,6 +56,7 @@ app.post("/bfhl", (req, res) => {
 
         if (!parent[c]) {
             parent[c] = p;
+
             children[p].push(c);
         }
     }
@@ -63,6 +66,7 @@ app.post("/bfhl", (req, res) => {
     edges.forEach(e => {
         let [p, c] = e.split("->");
         nodes.add(p);
+
         nodes.add(c);
     });
 
