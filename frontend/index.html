@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>BFHL Challenge</title>
+</head>
+<body>
+    <h2>Enter Nodes (comma separated)</h2>
+    
+    <input id="input" style="width:400px" placeholder="A->B, A->C">
+    <button onclick="send()">Submit</button>
+
+    <pre id="output"></pre>
+
+    <script>
+        async function send() {
+            const input = document.getElementById("input").value;
+            const data = input.split(",").map(x => x.trim());
+
+            const res = await fetch("http://localhost:3000/bfhl", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ data })
+            });
+
+            const json = await res.json();
+            document.getElementById("output").innerText =
+                JSON.stringify(json, null, 2);
+        }
+    </script>
+</body>
+</html>
